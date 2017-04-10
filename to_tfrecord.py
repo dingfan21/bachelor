@@ -6,16 +6,21 @@ from PIL import Image
 
 
 def organ_classify():
-    cwd = os.getcwd()
-    path = cwd  + "\\xml\\"
+    '''
+    distribute the data images into 7 different folders according to the 'Content' labels
+    window system! (replace all the "\\" with "/" in linux system)
+    '''
+
+    cwd = os.getcwd()                   # working path
+    path = cwd  + "\\xml\\"            # folder contains all the xml files
     for xml_name in os.listdir(path):
-        xml_path = path+xml_name
+        xml_path = path+xml_name                         # path of every xml file
         tree = ET.ElementTree(file=xml_path)
-        content = tree.find('Content').text
-        jpg_name =  tree.find('MediaId').text + '.jpg'
-        scr_path = cwd + "\\"+jpg_name
-        des_path = cwd + "\\"+ content + "\\" + jpg_name
-        shutil.move(scr_path,des_path)
+        content = tree.find('Content').text               # the category
+        jpg_name =  tree.find('MediaId').text + '.jpg'   # the path of the jpg file
+        scr_path = cwd + "\\"+jpg_name                    # source path
+        des_path = cwd + "\\"+ content + "\\" + jpg_name  # destination path
+        shutil.move(scr_path,des_path)                     # cut and copy the file
 
 
 
